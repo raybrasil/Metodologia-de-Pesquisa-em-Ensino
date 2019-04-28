@@ -38,6 +38,8 @@ barplot(pca.var.per, xlab = "Componentes Principais", ylab = "Porcentagem de var
 autoplot(prcomp(dados), data = dados, colour = "Nomes", loadings = T, 
          loadings.label = T, loadings.colour = "Blue")
 
+##Plots secundários
+
 #pca.plot <- plot(pca$x[,1], pca$x[,2])
 
 ##ggplot(data = dados.pca, aes(x = X, y = Y, label = Sample)) +
