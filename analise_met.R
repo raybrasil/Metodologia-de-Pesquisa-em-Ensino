@@ -6,7 +6,7 @@ library(ggfortify)
 
 ## Criando dataset
 
-dados <- matrix(data = -2:2, nrow = 300, ncol = 38)
+dados <- matrix(data = trunc(runif(11400, min = -3, max = 3)), nrow = 300, ncol = 38)
 colnames(dados) <- c(
   paste("P", 1:37, sep=""),
   paste("Nomes", sep = " "))
