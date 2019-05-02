@@ -1,21 +1,16 @@
 ##Importando bibliotecas
 
+library(randomNames)
 library(psych)
 library(ggplot2)
 library(ggfortify)
 
 ## Criando dataset
+#nomes <- randomNames(300, which.names = "first")
 
-cria.dataset <- function(perguntas, alunos){ 
-  
-  dados <- matrix(data = trunc(runif(perguntas * alunos, min = -3, max = 3)), nrow = alunos, ncol = perguntas)
-  colnames(dados) <- c(
-    paste("P", 1:perguntas, sep=""))
-  rownames(dados) <- paste("a", 1:alunos, sep = " ")
-  return(dados)
-}
-
-dados <- cria.dataset(38, 300)
+dados <- matrix(data = trunc(runif(37 * 300, min = -3, max = 3)), nrow = 300, ncol = 37)
+colnames(dados) <- paste("P", 1:37, sep="")
+rownames(dados) <- paste("a",1:300, sep = "")
 
 ## alpha Cronbach
 
@@ -43,12 +38,13 @@ barplot(pca.var.per, xlab = "Componentes Principais", ylab = "Porcentagem de Var
 x11()
 autoplot(prcomp(dados), data = dados, loadings = T, loadings.label = T, loadings.colour = "Blue")
 
-##Plots secundários
+###### Seus dados
 
-#pca.plot <- plot(pca$x[,1], pca$x[,2])
+Ray <- c(-2, -2, 2,2,1,-1,-2,-1,1,-2,0,-2,-1,0,2,2,2,2,2,-2,-2,2,2,1,-1,-2,-1,1,-2,2,1,-1,-2,-1,1,-2,2)
 
-##ggplot(data = dados.pca, aes(x = X, y = Y, label = Sample)) +
-##  geom_text()+
-##  xlab(paste("PC1 - ", pca.var.per[1], "%", sep = ""))+
-##  ylab(paste("PC2 - ", pca.var.per[2], "%", sep = ""))
+novos.dados <- rbind(Ray, dados)
+
+x11()
+autoplot(prcomp(novos.dados), data = novos.dados, label = T, loadings = T, loadings.colour = "Blue")
+
 
