@@ -6,11 +6,16 @@ library(ggfortify)
 
 ## Criando dataset
 
-dados <- matrix(data = trunc(runif(11400, min = -3, max = 3)), nrow = 300, ncol = 38)
-colnames(dados) <- c(
-  paste("P", 1:37, sep=""),
-  paste("Nomes", sep = " "))
-rownames(dados) <- paste("a", 1:300, sep = " ")
+cria.dataset <- function(perguntas, alunos){ 
+  
+  dados <- matrix(data = trunc(runif(perguntas * alunos, min = -3, max = 3)), nrow = alunos, ncol = perguntas)
+  colnames(dados) <- c(
+    paste("P", 1:perguntas, sep=""))
+  rownames(dados) <- paste("a", 1:alunos, sep = " ")
+  return(dados)
+}
+
+dados <- cria.dataset(38, 300)
 
 ## alpha Cronbach
 
@@ -30,13 +35,13 @@ pca <- prcomp(dados, scale = TRUE)
 
 pca.var <- pca$sdev^2
 pca.var.per <- round(pca.var/sum(pca.var)*100, 1)
-barplot(pca.var.per, xlab = "Componentes Principais", ylab = "Porcentagem de variação")
+barplot(pca.var.per, xlab = "Componentes Principais", ylab = "Porcentagem de Variacao")
 
 
 ##### Plot PCA
 
-autoplot(prcomp(dados), data = dados, colour = "Nomes", loadings = T, 
-         loadings.label = T, loadings.colour = "Blue")
+x11()
+autoplot(prcomp(dados), data = dados, loadings = T, loadings.label = T, loadings.colour = "Blue")
 
 ##Plots secund�rios
 
